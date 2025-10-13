@@ -2,7 +2,10 @@ package test.java;
 
 import main.java.Calculator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
@@ -32,5 +35,16 @@ public class CalculatorTest {
     public void divideByZeroTest() {
         Calculator c = new Calculator();
         assertThrows(IllegalArgumentException.class, () -> c.divide(42, 0) );
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+      "5, 7, 2",
+      "0, 0, 0",
+      "-1, 0, 1",
+    })
+    public void parameterizedSubtractTest(int expected, int a, int b) {
+        Calculator c = new Calculator();
+        assertEquals(expected, c.subtract(a, b));
     }
 }
