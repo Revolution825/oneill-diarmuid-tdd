@@ -3,10 +3,11 @@ package test.java;
 import main.java.Calculator;
 
 import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CalculatorTest {
+public class CalculatorTest {
     @Test
-    void addTest(int a, int b) {
+    public void addTest() {
         Calculator c = new Calculator();
         assertEquals(5, c.add(2, 3));
     }
