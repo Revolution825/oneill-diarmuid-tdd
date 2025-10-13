@@ -27,4 +27,10 @@ public class CalculatorTest {
         Calculator c = new Calculator();
         assertEquals(3, c.divide(3, 9));
     }
+
+    @Test
+    public void divideByZeroTest() {
+        Calculator c = new Calculator();
+        assertThrows(IllegalArgumentException.class, () -> c.divide(42, 0) );
+    }
 }
