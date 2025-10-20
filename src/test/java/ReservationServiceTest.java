@@ -12,16 +12,18 @@ public class ReservationServiceTest {
 
     @Test
     public void reservationCopiesAvailableLessThanOneTest() {
-        Book book = new Book("1", "testBook", 0 );
+        Book book = new Book("1", "testBook", 0);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
-        assertThrows(NoAvailableCopiesException.class,() -> {r.reserve(user.getId(), book.getId());});
+        assertThrows(NoAvailableCopiesException.class, () -> {
+            r.reserve(user.getId(), book.getId());
+        });
 
     }
 
     @Test
     public void reserveDecreasesCopiesAvailableTest() {
-        Book book = new Book("1", "testBook", 3 );
+        Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
         try {
@@ -34,7 +36,7 @@ public class ReservationServiceTest {
 
     @Test
     public void reservationSuccessfulTest() {
-        Book book = new Book("1", "testBook", 3 );
+        Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
         try {
@@ -43,5 +45,20 @@ public class ReservationServiceTest {
             System.out.println(e);
         }
         assertTrue(reservationRepo.existsByUserAndBook(user.getId(), book.getId()));
+    }
+
+    @Test
+    public void reserveSameBookTwiceTest() {
+        Book book = new Book("1", "testBook", 3);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+        } catch (NoAvailableCopiesException e) {
+            System.out.println(e);
+        }
+        assertThrows(IllegalStateException.class, () -> {
+            r.reserve(user.getId(), book.getId());
+        });
     }
 }
