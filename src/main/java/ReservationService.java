@@ -1,5 +1,6 @@
 package main.java;
 import java.util.List;
+
 public class ReservationService {
 
     private final IBookRepository bookRepo;
@@ -15,8 +16,13 @@ public class ReservationService {
      * Throws IllegalArgumentException if book not found.
      * Throws IllegalStateException if no copies available or user already reserved.
      */
-    public void reserve(String userId, String bookId) {
-        // TODO: Implement using TDD
+    public void reserve(String userId, String bookId) throws NoAvailableCopiesException{
+        Book book = bookRepo.findById(bookId);
+        if(book.getCopiesAvailable() <= 0) {
+            throw new NoAvailableCopiesException("No Available Copies");
+        } else {
+            
+        }
     }
 
     /**
