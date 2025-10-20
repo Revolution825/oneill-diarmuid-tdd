@@ -75,4 +75,20 @@ public class ReservationServiceTest {
         }
         assertEquals(3, book.getCopiesAvailable());
     }
+
+    @Test
+    public void userCanViewAllReservations() {
+        Book book1 = new Book("1", "testBook1", 3);
+        Book book2 = new Book("2", "testBook2", 2);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book1);
+        bookRepo.save(book2);
+        try {
+            r.reserve(user.getId(), book1.getId());
+            r.reserve(user.getId(), book2.getId());
+        } catch (NoAvailableCopiesException e) {
+            System.out.println(e);
+        }
+        assertEquals(2, r.listReservations(user.getId()).size());
+    }
 }
