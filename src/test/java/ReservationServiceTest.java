@@ -18,4 +18,17 @@ public class ReservationServiceTest {
         assertThrows(NoAvailableCopiesException.class,() -> {r.reserve(user.getId(), book.getId());});
 
     }
+
+        @Test
+    public void reserveDecreasesCopiesAvailableTest() {
+        Book book = new Book("1", "testBook", 3 );
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+        } catch (NoAvailableCopiesException e) {
+            System.out.println(e);
+        }
+        assertEquals(2, book.getCopiesAvailable());
+    }
 }
