@@ -19,7 +19,7 @@ public class ReservationServiceTest {
 
     }
 
-        @Test
+    @Test
     public void reserveDecreasesCopiesAvailableTest() {
         Book book = new Book("1", "testBook", 3 );
         User user = new User("11", "JohnDoe");
@@ -30,5 +30,18 @@ public class ReservationServiceTest {
             System.out.println(e);
         }
         assertEquals(2, book.getCopiesAvailable());
+    }
+
+    @Test
+    public void reservationSuccessfulTest() {
+        Book book = new Book("1", "testBook", 3 );
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve("11", "1");
+        } catch (NoAvailableCopiesException e) {
+            System.out.println(e);
+        }
+        assertTrue(reservationRepo.existsByUserAndBook(user.getId(), book.getId()));
     }
 }
