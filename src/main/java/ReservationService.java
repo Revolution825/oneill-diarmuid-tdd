@@ -1,4 +1,5 @@
 package main.java;
+
 import java.util.List;
 
 public class ReservationService {
@@ -16,12 +17,14 @@ public class ReservationService {
      * Throws IllegalArgumentException if book not found.
      * Throws IllegalStateException if no copies available or user already reserved.
      */
-    public void reserve(String userId, String bookId) throws NoAvailableCopiesException{
+    public void reserve(String userId, String bookId) throws NoAvailableCopiesException {
         Book book = bookRepo.findById(bookId);
-        if(book.getCopiesAvailable() <= 0) {
+        if (book.getCopiesAvailable() <= 0) {
             throw new NoAvailableCopiesException("No Available Copies");
-        } 
-        book.setCopiesAvailable(book.getCopiesAvailable()-1);
+        }
+        book.setCopiesAvailable(book.getCopiesAvailable() - 1);
+        Reservation reservation = new Reservation(userId, bookId);
+        reservationRepo.save(reservation);
     }
 
     /**
