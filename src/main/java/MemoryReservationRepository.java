@@ -1,7 +1,7 @@
 package main.java;
 
 import java.util.*;
-class MemoryReservationRepository implements IReservationRepository {
+public class MemoryReservationRepository implements IReservationRepository {
     private final List<Reservation> reservations = new ArrayList<>();
 
     @Override
