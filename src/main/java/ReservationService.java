@@ -35,7 +35,8 @@ public class ReservationService {
      * Throws IllegalArgumentException if no such reservation exists.
      */
     public void cancel(String userId, String bookId) {
-        // TODO: Implement using TDD
+        Book book = bookRepo.findById(bookId);
+        book.setCopiesAvailable(book.getCopiesAvailable() + 1);
     }
 
     /**
