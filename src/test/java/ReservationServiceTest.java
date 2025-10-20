@@ -61,4 +61,18 @@ public class ReservationServiceTest {
             r.reserve(user.getId(), book.getId());
         });
     }
+
+    @Test
+    public void cancellingReservationIncreasesCopiesAvailableTest() {
+        Book book = new Book("1", "testBook", 3);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+            r.cancel(user.getId(), book.getId());
+        } catch (NoAvailableCopiesException e) {
+            System.out.println(e);
+        }
+        assertEquals(3, book.getCopiesAvailable());
+    }
 }
