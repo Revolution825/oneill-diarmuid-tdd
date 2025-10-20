@@ -20,9 +20,8 @@ public class ReservationService {
         Book book = bookRepo.findById(bookId);
         if(book.getCopiesAvailable() <= 0) {
             throw new NoAvailableCopiesException("No Available Copies");
-        } else {
-            
-        }
+        } 
+        book.setCopiesAvailable(book.getCopiesAvailable()-1);
     }
 
     /**
