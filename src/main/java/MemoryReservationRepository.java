@@ -1,6 +1,7 @@
 package main.java;
 
 import java.util.*;
+
 public class MemoryReservationRepository implements IReservationRepository {
     private final List<Reservation> reservations = new ArrayList<>();
 
@@ -24,9 +25,14 @@ public class MemoryReservationRepository implements IReservationRepository {
     }
 
     @Override
+    public List<Reservation> findByBook(String bookId) {
+        return reservations.stream()
+                .filter(r -> r.getBookId().equals(bookId))
+                .toList();
+    }
+
+    @Override
     public void delete(String userId, String bookId) {
-        reservations.removeIf(r ->
-            r.getUserId().equals(userId) && r.getBookId().equals(bookId));
+        reservations.removeIf(r -> r.getUserId().equals(userId) && r.getBookId().equals(bookId));
     }
 }
-
