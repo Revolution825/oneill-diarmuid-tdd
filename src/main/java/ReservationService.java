@@ -17,7 +17,10 @@ public class ReservationService {
      * Throws IllegalArgumentException if book not found.
      * Throws IllegalStateException if no copies available or user already reserved.
      */
-    public void reserve(String userId, String bookId) throws IllegalStateException {
+    public void reserve(String userId, String bookId) throws IllegalStateException, IllegalArgumentException {
+        if (bookRepo.findById(bookId) == null) {
+            throw new IllegalArgumentException("Book not found");
+        }
         Book book = bookRepo.findById(bookId);
         if (book.getCopiesAvailable() <= 0) {
             throw new IllegalStateException("No Available Copies");
