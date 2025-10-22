@@ -115,4 +115,12 @@ public class ReservationServiceTest {
             r.cancel(user.getId(), book.getId());
         });
     }
+
+    @Test
+    public void IllegalArgumentExceptionIfBookNotFoundTest() {
+        User user = new User("11", "JohnDoe");
+        assertThrows(IllegalArgumentException.class, () -> {
+            r.reserve(user.getId(), "42");
+        });
+    }
 }
