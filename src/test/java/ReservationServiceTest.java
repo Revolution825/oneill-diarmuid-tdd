@@ -105,4 +105,14 @@ public class ReservationServiceTest {
         r.cancel(user.getId(), book.getId());
         assertEquals(0, r.listReservations(user.getId()).size());
     }
+
+    @Test
+    public void IllegalArgumentExceptionIfNoReservationFoundTest() {
+        Book book = new Book("1", "testBook1", 3);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        assertThrows(IllegalArgumentException.class, () -> {
+            r.cancel(user.getId(), book.getId());
+        });
+    }
 }
