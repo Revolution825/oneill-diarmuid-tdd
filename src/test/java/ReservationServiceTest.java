@@ -91,4 +91,18 @@ public class ReservationServiceTest {
         }
         assertEquals(2, r.listReservations(user.getId()).size());
     }
+
+    @Test
+    public void cancelReservationTest() {
+        Book book = new Book("1", "testBook1", 3);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+        } catch (IllegalStateException e) {
+            System.out.println(e);
+        }
+        r.cancel(user.getId(), book.getId());
+        assertEquals(0, r.listReservations(user.getId()).size());
+    }
 }
