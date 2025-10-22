@@ -123,4 +123,18 @@ public class ReservationServiceTest {
             r.reserve(user.getId(), "42");
         });
     }
+
+    @Test
+    public void ListReservationsForBooksTest() {
+        Book book = new Book("1", "testBook1", 3);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+            r.reserve(user.getId(), book.getId());
+        } catch (IllegalStateException e) {
+            System.out.println(e);
+        }
+        assertEquals(2, r.listReservationsForBook(book.getId()).size());
+    }
 }
