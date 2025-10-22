@@ -3,6 +3,7 @@ package main.java;
 public class User {
     private String id;
     private String name;
+    private boolean priority = false;
 
     public User(String id, String name) {
         this.id = id;
@@ -19,6 +20,10 @@ public class User {
         return name;
     }
 
+    public boolean getPriority() {
+        return priority;
+    }
+
     // Setters
 
     public void setId(String id) {
@@ -27,5 +32,9 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
     }
 }
