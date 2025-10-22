@@ -140,7 +140,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    void reservingLastCopyTest() {
+    public void reservingLastCopyTest() {
         Book book = new Book("1", "testBook1", 1);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
@@ -150,5 +150,12 @@ public class ReservationServiceTest {
             System.out.println(e);
         }
         assertEquals(0, book.getCopiesAvailable());
+    }
+
+    @Test
+    public void userSetToPriorityUser() {
+        User user = new User("11", "JohnDoe");
+        user.setPriority(true);
+        assertTrue(user.getPriority())
     }
 }
