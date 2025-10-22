@@ -158,4 +158,13 @@ public class ReservationServiceTest {
         user.setPriority(true);
         assertTrue(user.getPriority());
     }
+
+    @Test
+    public void priorityUserAddedToWaitingListTest() {
+        User user = new User("11", "JohnDoe");
+        Book book = new Book("1", "testBook1", 0);
+        user.setPriority(true);
+        r.reserve(user.getId(), book.getId());
+        assertEquals(1, r.listWaitingListForBook(book.getId()).size());
+    }
 }
