@@ -15,7 +15,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 0);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
-        assertThrows(NoAvailableCopiesException.class, () -> {
+        assertThrows(IllegalStateException.class, () -> {
             r.reserve(user.getId(), book.getId());
         });
 
@@ -28,7 +28,7 @@ public class ReservationServiceTest {
         bookRepo.save(book);
         try {
             r.reserve(user.getId(), book.getId());
-        } catch (NoAvailableCopiesException e) {
+        } catch (IllegalStateException e) {
             System.out.println(e);
         }
         assertEquals(2, book.getCopiesAvailable());
@@ -41,7 +41,7 @@ public class ReservationServiceTest {
         bookRepo.save(book);
         try {
             r.reserve("11", "1");
-        } catch (NoAvailableCopiesException e) {
+        } catch (IllegalStateException e) {
             System.out.println(e);
         }
         assertTrue(reservationRepo.existsByUserAndBook(user.getId(), book.getId()));
@@ -54,7 +54,7 @@ public class ReservationServiceTest {
         bookRepo.save(book);
         try {
             r.reserve(user.getId(), book.getId());
-        } catch (NoAvailableCopiesException e) {
+        } catch (IllegalStateException e) {
             System.out.println(e);
         }
         assertThrows(IllegalStateException.class, () -> {
@@ -70,7 +70,7 @@ public class ReservationServiceTest {
         try {
             r.reserve(user.getId(), book.getId());
             r.cancel(user.getId(), book.getId());
-        } catch (NoAvailableCopiesException e) {
+        } catch (IllegalStateException e) {
             System.out.println(e);
         }
         assertEquals(3, book.getCopiesAvailable());
@@ -86,7 +86,7 @@ public class ReservationServiceTest {
         try {
             r.reserve(user.getId(), book1.getId());
             r.reserve(user.getId(), book2.getId());
-        } catch (NoAvailableCopiesException e) {
+        } catch (IllegalStateException e) {
             System.out.println(e);
         }
         assertEquals(2, r.listReservations(user.getId()).size());
