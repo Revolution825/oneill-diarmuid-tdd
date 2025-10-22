@@ -153,9 +153,9 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void userSetToPriorityUser() {
+    public void userSetToPriorityUserTest() {
         User user = new User("11", "JohnDoe");
         user.setPriority(true);
-        assertTrue(user.getPriority())
+        assertTrue(user.getPriority());
     }
 }
