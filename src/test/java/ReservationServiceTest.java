@@ -138,4 +138,17 @@ public class ReservationServiceTest {
         }
         assertEquals(2, r.listReservationsForBook(book.getId()).size());
     }
+
+    @Test
+    void reservingLastCopyTest() {
+        Book book = new Book("1", "testBook1", 1);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        try {
+            r.reserve(user.getId(), book.getId());
+        } catch (IllegalStateException e) {
+            System.out.println(e);
+        }
+        assertEquals(0, book.getCopiesAvailable());
+    }
 }
