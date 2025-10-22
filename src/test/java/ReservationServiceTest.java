@@ -11,7 +11,7 @@ public class ReservationServiceTest {
     ReservationService r = new ReservationService(bookRepo, reservationRepo);
 
     @Test
-    public void reservationCopiesAvailableLessThanOneTest() {
+    public void noCopiesAvailableTest() {
         Book book = new Book("1", "testBook", 0);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
