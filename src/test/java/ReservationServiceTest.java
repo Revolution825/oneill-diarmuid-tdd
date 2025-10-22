@@ -127,11 +127,12 @@ public class ReservationServiceTest {
     @Test
     public void ListReservationsForBooksTest() {
         Book book = new Book("1", "testBook1", 3);
-        User user = new User("11", "JohnDoe");
+        User user1 = new User("11", "JohnDoe");
+        User user2 = new User("12", "JaneDoe");
         bookRepo.save(book);
         try {
-            r.reserve(user.getId(), book.getId());
-            r.reserve(user.getId(), book.getId());
+            r.reserve(user1.getId(), book.getId());
+            r.reserve(user2.getId(), book.getId());
         } catch (IllegalStateException e) {
             System.out.println(e);
         }
