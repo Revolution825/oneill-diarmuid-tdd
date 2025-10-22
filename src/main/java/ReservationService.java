@@ -37,6 +37,7 @@ public class ReservationService {
     public void cancel(String userId, String bookId) {
         Book book = bookRepo.findById(bookId);
         book.setCopiesAvailable(book.getCopiesAvailable() + 1);
+        reservationRepo.delete(userId, bookId);
     }
 
     /**
