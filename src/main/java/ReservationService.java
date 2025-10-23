@@ -32,13 +32,15 @@ public class ReservationService {
             } else {
                 throw new IllegalStateException("No Available Copies");
             }
+        } else {
+            if (reservationRepo.existsByUserAndBook(userId, bookId)) {
+                throw new IllegalStateException("User has already reserved this book");
+            }
+            book.setCopiesAvailable(book.getCopiesAvailable() - 1);
+            Reservation reservation = new Reservation(userId, bookId);
+            reservationRepo.save(reservation);
         }
-        if (reservationRepo.existsByUserAndBook(userId, bookId)) {
-            throw new IllegalStateException("User has already reserved this book");
-        }
-        book.setCopiesAvailable(book.getCopiesAvailable() - 1);
-        Reservation reservation = new Reservation(userId, bookId);
-        reservationRepo.save(reservation);
+
     }
 
     /**
