@@ -50,7 +50,11 @@ public class ReservationService {
         if (!reservationRepo.existsByUserAndBook(userId, bookId)) {
             throw new IllegalArgumentException("Reservation does not exist");
         }
-        book.setCopiesAvailable(book.getCopiesAvailable() + 1);
+        if (!book.getWaitingList().isEmpty()) {
+            book.removeFromWaitingList();
+        } else {
+            book.setCopiesAvailable(book.getCopiesAvailable() + 1);
+        }
         reservationRepo.delete(userId, bookId);
     }
 
