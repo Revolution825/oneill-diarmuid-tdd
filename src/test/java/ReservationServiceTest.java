@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReservationServiceTest {
     private IBookRepository bookRepo = new MemoryBookRepository();
     private IReservationRepository reservationRepo = new MemoryReservationRepository();
-    ReservationService r = new ReservationService(bookRepo, reservationRepo);
+    private IUserRepository userRepo = new MemoryUserRepository();
+    ReservationService r = new ReservationService(bookRepo, reservationRepo, userRepo);
 
     @Test
     public void noCopiesAvailableTest() {
@@ -163,6 +164,8 @@ public class ReservationServiceTest {
     public void priorityUserAddedToWaitingListTest() {
         User user = new User("11", "JohnDoe");
         Book book = new Book("1", "testBook1", 0);
+        bookRepo.save(book);
+        userRepo.save(user);
         user.setPriority(true);
         r.reserve(user.getId(), book.getId());
         assertEquals(1, r.listWaitingListForBook(book.getId()).size());
