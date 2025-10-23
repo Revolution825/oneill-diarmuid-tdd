@@ -53,7 +53,8 @@ public class ReservationService {
             throw new IllegalArgumentException("Reservation does not exist");
         }
         if (!book.getWaitingList().isEmpty()) {
-            book.removeFromWaitingList();
+            Reservation reservation = new Reservation(book.removeFromWaitingList().getId(), bookId);
+            reservationRepo.save(reservation);
         } else {
             book.setCopiesAvailable(book.getCopiesAvailable() + 1);
         }

@@ -51,7 +51,7 @@ public class Book {
         waitingList.add(user);
     }
 
-    public void removeFromWaitingList() {
-        waitingList.remove(waitingList.size() - 1);
+    public User removeFromWaitingList() {
+        return waitingList.remove(0);
     }
 }
