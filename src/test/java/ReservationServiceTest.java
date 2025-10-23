@@ -16,6 +16,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 0);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         assertThrows(IllegalStateException.class, () -> {
             r.reserve(user.getId(), book.getId());
         });
@@ -27,6 +28,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book.getId());
         } catch (IllegalStateException e) {
@@ -40,6 +42,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve("11", "1");
         } catch (IllegalStateException e) {
@@ -53,6 +56,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book.getId());
         } catch (IllegalStateException e) {
@@ -68,6 +72,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book.getId());
             r.cancel(user.getId(), book.getId());
@@ -84,6 +89,7 @@ public class ReservationServiceTest {
         User user = new User("11", "JohnDoe");
         bookRepo.save(book1);
         bookRepo.save(book2);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book1.getId());
             r.reserve(user.getId(), book2.getId());
@@ -98,6 +104,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook1", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book.getId());
         } catch (IllegalStateException e) {
@@ -112,6 +119,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook1", 3);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         assertThrows(IllegalArgumentException.class, () -> {
             r.cancel(user.getId(), book.getId());
         });
@@ -120,6 +128,7 @@ public class ReservationServiceTest {
     @Test
     public void IllegalArgumentExceptionIfBookNotFoundTest() {
         User user = new User("11", "JohnDoe");
+        userRepo.save(user);
         assertThrows(IllegalArgumentException.class, () -> {
             r.reserve(user.getId(), "42");
         });
@@ -131,6 +140,8 @@ public class ReservationServiceTest {
         User user1 = new User("11", "JohnDoe");
         User user2 = new User("12", "JaneDoe");
         bookRepo.save(book);
+        userRepo.save(user1);
+        userRepo.save(user2);
         try {
             r.reserve(user1.getId(), book.getId());
             r.reserve(user2.getId(), book.getId());
@@ -145,6 +156,7 @@ public class ReservationServiceTest {
         Book book = new Book("1", "testBook1", 1);
         User user = new User("11", "JohnDoe");
         bookRepo.save(book);
+        userRepo.save(user);
         try {
             r.reserve(user.getId(), book.getId());
         } catch (IllegalStateException e) {
@@ -156,6 +168,7 @@ public class ReservationServiceTest {
     @Test
     public void userSetToPriorityUserTest() {
         User user = new User("11", "JohnDoe");
+        userRepo.save(user);
         user.setPriority(true);
         assertTrue(user.getPriority());
     }
