@@ -209,4 +209,19 @@ public class ReservationServiceTest {
         r.reserve(user.getId(), book.getId());
         assertEquals(0, r.listReservations(user.getId()).size());
     }
+
+    @Test
+    public void waitingUserGetsReservationTest() {
+        User user1 = new User("11", "JohnDoe");
+        User user2 = new User("12", "JaneDoe");
+        Book book = new Book("1", "testBook1", 1);
+        bookRepo.save(book);
+        userRepo.save(user1);
+        userRepo.save(user2);
+        user1.setPriority(true);
+        r.reserve(user2.getId(), book.getId());
+        r.reserve(user1.getId(), book.getId());
+        r.cancel(user2.getId(), book.getId());
+        assertEquals(1, r.listReservationsForBook(book.getId()).size());
+    }
 }
