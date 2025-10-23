@@ -198,4 +198,15 @@ public class ReservationServiceTest {
         r.cancel(user2.getId(), book.getId());
         assertEquals(0, r.listWaitingListForBook(book.getId()).size());
     }
+
+    @Test
+    public void reserveBooksWithNoCopiesAsPriorityUserTest() {
+        Book book = new Book("1", "testBook", 0);
+        User user = new User("11", "JohnDoe");
+        bookRepo.save(book);
+        userRepo.save(user);
+        user.setPriority(true);
+        r.reserve(user.getId(), book.getId());
+        assertEquals(0, r.listReservations(user.getId()).size());
+    }
 }
